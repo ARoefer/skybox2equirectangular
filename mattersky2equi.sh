@@ -13,7 +13,7 @@ echo "name is $name"
 
 ts0=$(date +%s)
 
-./sky2equi.sh "$name"skybox1.jpg "$name"skybox3.jpg "$name"skybox4.jpg "$name"skybox2.jpg "$name"skybox0.jpg "$name"skybox5.jpg "$name"equi.jpg $2
+./sky2equi.sh "$name"skybox1_sami.jpg "$name"skybox3_sami.jpg "$name"skybox4_sami.jpg "$name"skybox2_sami.jpg "$name"skybox0_sami.jpg "$name"skybox5_sami.jpg "$name"equi.jpg $2
 
 ts1=$(date +%s)
 let "dif = $ts1 - $ts0"
