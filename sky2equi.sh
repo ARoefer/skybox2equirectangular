@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 if [ "$#" -lt "7" ] || [ "$#" -gt "8" ] ; then
 	echo "usage: 		 ./sky2equi.sh <front> <back> <right> <left> <top> <bottom> <equirectangular> [<width>]"
@@ -27,12 +28,14 @@ if [ "$HEIGHT" -lt "100" ] || [ "$HEIGHT" -gt "100000" ] ; then
 fi
 
 R_NUM=$[ RANDOM % 10 ]$[ RANDOM % 10 ]$[ RANDOM % 10 ]$[ RANDOM % 10 ]$[ RANDOM % 10 ]$[ RANDOM % 10 ]$[ RANDOM % 10 ]$[ RANDOM % 10 ]$[ RANDOM % 10 ]$[ RANDOM % 10 ]
-TMPS_PATH="/dev/shm/skyequi-tmpfiles"$R_NUM".bmp"
-TMPD_PATH="/dev/shm/skyequi-tmpfiled"$R_NUM".bmp"
-TMPJ_PATH="/dev/shm/skyequi-tmpfiled"$R_NUM".jpg"
+TMPS_PATH="skyequi-tmpfiles"$R_NUM".bmp"
+TMPD_PATH="skyequi-tmpfiled"$R_NUM".bmp"
+TMPJ_PATH="skyequi-tmpfiled"$R_NUM".jpg"
 
+echo "RUNNING MONTAGE"
 montage "$4" "$3" "$5" "$6" "$1" "$2" -tile 6x1 -geometry x+0+0 "$TMPS_PATH"
 
+echo "RUNNING FFMPEG"
 ffmpeg -i "$TMPS_PATH" -vf v360=c6x1:equirect:w=$WIDTH:h=$HEIGHT "$TMPD_PATH"
 
 rm "$TMPS_PATH"
